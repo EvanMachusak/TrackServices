@@ -5,6 +5,10 @@
         "sourceMap": true,
         "lib": [
             "es6"
-        ]
-    }
+        ],
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }

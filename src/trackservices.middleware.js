@@ -8,27 +8,41 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 exports.__esModule = true;
+var toGeoJson = require("@mapbox/togeojson");
 var xmldom = require("xmldom");
-var domParser = xmldom.DOMParser;
+var domParser = new xmldom.DOMParser();
 require("geojson");
 exports.post = function (handler) {
     var expressHandler = function (request, response, next) {
         var method = (request.method || "").toLocaleLowerCase();
-        if (method == "post") {
-            var geoProps = {
-                sourceFileName: "test.gpx",
-                sourceFormat: "gpx",
-                geo: undefined
-            };
-            var geoRequest = __assign({}, request, geoProps);
-            var handlerResult = handler(geoRequest);
-            response.status(handlerResult.status);
-            if ((handlerResult.contentType || "").length > 0) {
-                response.setHeader("content-type", handlerResult.contentType);
-            }
-            if (handlerResult.responseBody) {
-                response.json(handlerResult.responseBody);
-            }
+        var requestFiles = request.files;
+        var files = [];
+        for (var key in requestFiles)
+            files.push(requestFiles[key]);
+        var geoProps = {
+            sourceFileName: "test.gpx",
+            sourceFormat: "gpx",
+            geo: undefined
+        };
+        if (files && files.length == 1) {
+            var fileBuffer = files[0].data;
+            var xml = domParser.parseFromString(fileBuffer.toString("utf8"));
+            var geoJson = toGeoJson.gpx(xml);
+            geoProps.geo = geoJson;
+        }
+        else if (files && files.length > 1) {
+            response.json("At most 1 file should be included in this request");
+            response.end;
+            return;
+        }
+        var geoRequest = __assign({}, request, geoProps);
+        var handlerResult = handler(geoRequest);
+        response.status(handlerResult.status);
+        if ((handlerResult.contentType || "").length > 0) {
+            response.setHeader("content-type", handlerResult.contentType);
+        }
+        if (handlerResult.body) {
+            response.json(handlerResult.body);
         }
         response.end();
     };
