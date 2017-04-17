@@ -1,0 +1,10 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "lib": [
+            "es6"
+        ]
+    }
+}
