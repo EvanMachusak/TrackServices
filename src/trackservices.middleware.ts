@@ -1,6 +1,5 @@
 import express = require('express');
 import toGeoJson = require('@mapbox/togeojson');
-import fs = require('fs');
 import xmldom = require('xmldom');
 const domParser = new xmldom.DOMParser();
 import 'geojson';
