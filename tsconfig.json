@@ -1,9 +1,11 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "noEmitHelpers": true,
-        "importHelpers": true,
+        "noEmitHelpers": false,
+        "importHelpers": false,
         "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es5",
         "sourceMap": true,
         "lib": [
             "es6"
@@ -11,6 +13,7 @@
         "skipLibCheck": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "src/lambda/node_modules"
     ]
 }

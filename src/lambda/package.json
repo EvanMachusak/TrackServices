@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
-    "aws-lambda": "^0.1.2",
     "aws-sdk": "^2.41.0",
     "geojson": "^0.4.1",
+    "es6-promisify": "^5.0.0",
     "jsonminify": "^0.4.1",
     "xmldom": "^0.1.27"
   },

@@ -1,6 +1,13 @@
 "use strict";
-exports.__esModule = true;
-var tslib_1 = require("tslib");
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 var toGeoJson = require("@mapbox/togeojson");
 var xmldom = require("xmldom");
 var domParser = new xmldom.DOMParser();
@@ -28,7 +35,7 @@ exports.post = function (handler) {
             response.end;
             return;
         }
-        var geoRequest = tslib_1.__assign({}, request, geoProps);
+        var geoRequest = __assign({}, request, geoProps);
         var handlerResult = handler(geoRequest);
         response.status(handlerResult.status);
         if ((handlerResult.contentType || "").length > 0) {
